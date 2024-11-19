@@ -1,0 +1,241 @@
+.topnav {
+  background-color: #191970;
+  color: rgb(255, 255, 255);
+  padding: 0; /* 10px เท่ากับ 0.625em เมื่อ font-size = 16px */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9375em; /* 15px เท่ากับ 0.9375em เมื่อ font-size = 16px */
+  white-space: nowrap;
+  width: 100%;
+}
+
+.top {
+  display: flex;
+}
+
+.time {
+  margin-left: 6.25em; /* 100px เท่ากับ 6.25em เมื่อ font-size = 16px */
+}
+
+.t1 {
+  margin-left: 0.625em; /* 10px เท่ากับ 0.625em เมื่อ font-size = 16px */
+  margin-right: 3.125em; /* 50px เท่ากับ 3.125em เมื่อ font-size = 16px */
+}
+
+.t2 {
+  margin-left: 0.625em;
+}
+
+.btn-5 img {
+  width: 12.5em; /* 200px เท่ากับ 12.5em เมื่อ font-size = 16px */
+  height: auto;
+  vertical-align: -0.625em; /* 10px เท่ากับ 0.625em เมื่อ font-size = 16px */
+  margin-left: 0em; /* 50px เท่ากับ 3.125em เมื่อ font-size = 16px */
+  margin-top: -0.625em; /* 10px เท่ากับ 0.625em เมื่อ font-size = 16px */
+}
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+nav {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  padding: 0; /* 10px เท่ากับ 0.625em เมื่อ font-size = 16px */
+  font-size: 1.875em; /* 30px เท่ากับ 1.875em เมื่อ font-size = 16px */
+  font-family: "Prompt", sans-serif;
+  font-size: 0.9em; /* ปรับขนาดตามที่ต้องการ เช่น 0.8em, 0.75em */
+}
+
+nav a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  margin: 0em 1em -0.9375em; /* ใช้ em แทน px */
+  font-size: 1.25em; /* 20px เท่ากับ 1.25em เมื่อ font-size = 16px */
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: center;
+  overflow: hidden;
+}
+
+.navbar li {
+  float: left;
+  margin-right: -4em; /* ใช้ em แทน px */
+}
+
+.navbar li.right {
+  float: right;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.navbar li a,
+.navbar .dropbtn {
+  display: inline-block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 0.875em 1em; /* ใช้ em แทน px */
+  text-decoration: none;
+}
+
+.navbar li a:hover,
+.navbar .dropdown:hover .dropbtn {
+  color: #00BFFF;
+}
+
+.navbar .dropdown-content {
+  display: none;
+  position: center;
+  background-color: #f9f9f9;
+  min-width: 10em; /* ใช้ em แทน px */
+  box-shadow: 0px 0.5em 1em 0px #00BFFF; /* ใช้ em แทน px */
+  z-index: 1;
+
+}
+
+.navbar .dropdown-content a {
+  color: black;
+  padding: 0.75em 1em; /* ใช้ em แทน px */
+  display: block;
+  text-align: left;
+}
+
+.navbar .dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.navbar .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.menu-item a {
+  display: block;
+  white-space: nowrap; /* Prevents text from wrapping */
+  overflow: hidden; /* Hides overflow text */
+  text-overflow: ellipsis; /* Adds ellipsis (...) for overflowed text */
+  width: 100%; /* Ensure it takes full width of parent */
+}
+
+.grid {
+  margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12.5%, 1fr)); /* ใช้ % แทน px */
+}
+
+.Mobile {
+  display: none;
+}
+
+
+/* Show the dropdown menu only on screens smaller than 1024px */
+@media (max-width: 1024px) {
+    .Mobile {
+        display: block;
+        
+    }
+}
+ 
+/* Hide the desktop navbar on screens smaller than 1024px */
+@media (max-width: 1024px) {
+    .navbar {
+        display: none;
+    }
+}
+
+/* สำหรับหน้าจอมือถือ */
+@media (max-width: 768px) {
+  .topnav, .Mobile {
+      width: auto; /* ให้กว้างเท่ากับขนาดของหน้าจอ */
+      margin: 0; /* เอาช่องว่างรอบๆออก */
+      padding: 0; /* เอาช่องว่างภายในออก */
+  }
+
+  .top {
+      width: 100%;
+      padding: 0; /* เอาช่องว่างภายในออก */
+      margin: 0;
+  }
+
+  .time {
+      margin: 0.5em 0.5em 0.5em 0.5em;
+  }
+
+  .t1, .t2 {
+      margin: 0.3125em 0;
+  }
+
+  .dropdown {
+      width: 100vw; /* ให้กว้างเท่ากับขนาดของหน้าจอ */
+      margin: 0; /* เอาช่องว่างรอบๆออก */
+      padding: 0; /* เอาช่องว่างภายในออก */
+      background-color: #ffffff;
+  }
+
+  .dropdown-menu {
+      width: 100vw; /* ให้กว้างเท่ากับขนาดของหน้าจอ */
+      margin: 0; /* เอาช่องว่างรอบๆออก */
+      padding: 0; /* เอาช่องว่างภายในออก */
+  }
+
+  .dropdown-menu .dropdown-item {
+      padding: 0.75em 1em; /* ใช้ em แทน px */
+  }
+ 
+}
+
+/* สำหรับหน้าจอแท็บเล็ต */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .topnav, .Mobile {
+      width: 100%; /* ให้กว้างเท่ากับขนาดของหน้าจอ */
+      margin: 0; /* เอาช่องว่างรอบๆออก */
+      padding: 0; /* เอาช่องว่างภายในออก */
+  }
+
+  .top {
+      width: 100%;
+      padding: 0; /* เอาช่องว่างภายในออก */
+      margin: 0;
+  }
+
+  .time {
+      margin: 0.5em 0.5em 0.5em 0.5em;
+  }
+
+  .t1, .t2 {
+      margin: 0.3125em 0;
+  }
+
+  .dropdown {
+      width: 100vw; /* ให้กว้างเท่ากับขนาดของหน้าจอ */
+      margin: 0; /* เอาช่องว่างรอบๆออก */
+      padding: 0; /* เอาช่องว่างภายในออก */
+      background-color: #ffffff;
+  }
+
+  .dropdown-menu {
+      width: 100vw; /* ให้กว้างเท่ากับขนาดของหน้าจอ */
+      margin: 0; /* เอาช่องว่างรอบๆออก */
+      padding: 0; /* เอาช่องว่างภายในออก */
+  }
+
+  .dropdown-menu .dropdown-item {
+      padding: 0.75em 1em; /* ใช้ em แทน px */
+  }
+  
+}
