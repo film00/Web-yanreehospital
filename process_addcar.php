@@ -1,14 +1,13 @@
 <?php
-// เปิดการแสดงผลข้อผิดพลาด
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// ข้อมูลการเชื่อมต่อฐานข้อมูล
-$servername = "localhost";
-$username = "yanreeho_yanree_db"; 
-$password = "B@4N+209rhMfoT";
-$dbname = "yanreeho_yanree_db";
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
 
 try {
     // เชื่อมต่อฐานข้อมูล
