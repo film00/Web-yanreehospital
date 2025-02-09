@@ -2,10 +2,10 @@
 ob_start(); // เริ่มต้น output buffering
 session_start(); // ใช้งาน session
 
-$servername = "localhost";
-$username = "yanreeho_yanree_db";
-$password = "B@4N+209rhMfoT";
-$dbname = "yanreeho_yanree_db";
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
  
 require_once "./nav/navbar_addmin.php";
 require_once "./footer/footer.php"; 
