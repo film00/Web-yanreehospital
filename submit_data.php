@@ -1,9 +1,9 @@
 <?php
 session_start();
-$servername = "localhost";
-$username = "yanreeho_yanree_db";
-$password = "B@4N+209rhMfoT";
-$dbname = "yanreeho_yanree_db";
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
 
 
 date_default_timezone_set('Asia/Bangkok');
