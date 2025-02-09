@@ -4,10 +4,10 @@ ob_start();
 require_once "./nav/navbar_addmin.php";
 require_once "./footer/footer.php";
 
-$servername = "localhost";
-$username = "yanreeho_yanree_db";
-$password = "B@4N+209rhMfoT";
-$dbname = "yanreeho_yanree_db";
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
 
 
 try {
