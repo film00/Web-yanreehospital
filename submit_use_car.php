@@ -1,12 +1,10 @@
 <?php
 session_start();
 
-// เชื่อมต่อกับฐานข้อมูล
-$servername = "localhost";
-$username = "yanreeho_yanree_db";
-$password = "B@4N+209rhMfoT";
-$dbname = "yanreeho_yanree_db";
- 
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
