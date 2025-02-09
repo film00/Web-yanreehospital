@@ -2,10 +2,10 @@
 require_once('./TCPDF-main/tcpdf.php');
 
 // Database connection
-$servername = "localhost";
-$username = "yanreeho_yanree_db";
-$password = "B@4N+209rhMfoT";
-$dbname = "yanreeho_yanree_db";
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
 
  
 // Create connection
