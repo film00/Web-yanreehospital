@@ -5,10 +5,10 @@ ob_start(); // เริ่มการ buffer output
 require_once "./nav/navbar_addmin.php";
 require_once "./footer/footer.php"; // ตรวจสอบเส้นทางไฟล์และปรับให้ถูกต้อง
 
-$servername = "localhost";
-$username = "yanreeho_yanree_db";
-$password = "B@4N+209rhMfoT";
-$dbname = "yanreeho_yanree_db";
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
  
 if (isset($_SESSION['id_us'])) {
     $id_us = $_SESSION['id_us'];
