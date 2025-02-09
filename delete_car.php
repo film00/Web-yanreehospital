@@ -7,10 +7,10 @@ if (!isset($_SESSION['id_us'])) {
     exit();
 }
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "yanree_db";
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
 
 if (isset($_GET['id'])) {
     $id_car = $_GET['id'];
