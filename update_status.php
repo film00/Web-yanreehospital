@@ -3,11 +3,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $status = $_POST['status'];
     $user_id = $_POST['user_id'];
 
-    // สร้างการเชื่อมต่อกับฐานข้อมูล
-    $servername = "localhost";
-    $username = "yanreeho_yanree_db";
-    $password = "B@4N+209rhMfoT";
-    $dbname = "yanreeho_yanree_db";
+    $servername = "**********";
+    $username = "**********";
+    $password = "**********";
+    $dbname = "**********";
     
 
     // ตรวจสอบการเชื่อมต่อ
