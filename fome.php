@@ -3,10 +3,10 @@ session_start();
 require_once "./nav/navbar_addmin.php"; // ท่านอาจจะต้องแก้ไข path ถ้ามันไม่ถูกต้อง
 require_once "./footer/footer.php"; // เดี๋ยวผมจะเรียกใช้ footer ให้ในที่เดียว
 
-$servername = "localhost";
-$username = "yanreeho_yanree_db";
-$password = "B@4N+209rhMfoT";
-$dbname = "yanreeho_yanree_db";
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
 
 
 if(isset($_SESSION['id_us'])){
