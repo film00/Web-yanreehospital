@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-$servername = "localhost";
-$username = "yanreeho_yanree_db";
+$servername = "**********";
+$username = "**********";
 $password = "**********";
-$dbname = "yanreeho_yanree_db";
+$dbname = "**********";
 
 if (isset($_SESSION['id_us'])) {
     $id_us = $_SESSION['id_us'];
