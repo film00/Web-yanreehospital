@@ -3,11 +3,10 @@ session_start();
 require_once "./nav/navbar_boss.php";
 require_once "./footer/footer.php";
 
-// Database connection setup
-$servername = "localhost";
-$username = "yanreeho_yanree_db";
-$password = "B@4N+209rhMfoT";
-$dbname = "yanreeho_yanree_db";
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
 
 if (isset($_GET['id'])) {
     $id_usecar = $_GET['id'];
