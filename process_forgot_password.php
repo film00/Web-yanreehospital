@@ -1,14 +1,14 @@
 <?php
-$servername = "localhost";
-$username = "yanreeho_yanree_db"; // เปลี่ยนข้อมูลผู้ใช้ให้ถูกต้อง
-$password = "B@4N+209rhMfoT";     // ใช้รหัสผ่านที่ถูกต้อง
-$dbname = "yanreeho_yanree_db";   // ชื่อฐานข้อมูลที่ถูกต้อง
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // เชื่อมต่อฐานข้อมูล
-    $dsn = 'mysql:host=localhost;dbname=yanreeho_yanree_db;charset=utf8'; // ใช้ข้อมูลฐานข้อมูลที่ถูกต้อง
-    $username = 'yanreeho_yanree_db';  // เปลี่ยนเป็นผู้ใช้ที่ถูกต้อง
-    $password = 'B@4N+209rhMfoT';      // เปลี่ยนเป็นรหัสผ่านที่ถูกต้อง
+    
+    $dsn = 'mysql:host=localhost;dbname=yanreeho_yanree_db;charset=utf8'; 
+    $username = 'yanreeho_yanree_db';  
+    $password = 'B@4N+209rhMfoT';      
 
     try {
         $pdo = new PDO($dsn, $username, $password);
@@ -17,10 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Database connection failed: " . $e->getMessage());
     }
 
-    // รับค่าที่ผู้ใช้กรอก
+    
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 
-    // ตรวจสอบอีเมลจากฐานข้อมูล
+    
     $sql = "SELECT username, password FROM users WHERE email = :email";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':email', $email);
