@@ -3,10 +3,10 @@
     require_once "./nav/navbar_boss.php";
     require_once "./footer/footer.php";
 
-    $servername = "localhost";
-    $username = "yanreeho_yanree_db";
-    $password = "B@4N+209rhMfoT";
-    $dbname = "yanreeho_yanree_db";
+    $servername = "**********";
+    $username = "**********";
+    $password = "**********";
+    $dbname = "**********";
 
     // ตรวจสอบว่ามีค่า id_us ใน session หรือไม่
 if (isset($_SESSION['id_us'])) {
