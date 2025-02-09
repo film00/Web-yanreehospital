@@ -1,9 +1,9 @@
 <?php 
 // เชื่อมต่อกับฐานข้อมูล
-$servername = "localhost";
-$username = "yanreeho_yanree_db"; // ชื่อผู้ใช้ฐานข้อมูล
-$password = "B@4N+209rhMfoT"; // รหัสผ่านฐานข้อมูล
-$dbname = "yanreeho_yanree_db"; // ชื่อฐานข้อมูล
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
 require_once "./nav/navbar_boss.php";
 require_once "./footer/footer.php";
 // สร้างการเชื่อมต่อ
