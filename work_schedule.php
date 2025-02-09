@@ -2,10 +2,10 @@
 session_start();
 require_once "./nav/navbar_boss.php";
 
-$servername = "localhost";
-$username = "yanreeho_yanree_db";
-$password = "B@4N+209rhMfoT";
-$dbname = "yanreeho_yanree_db";
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
