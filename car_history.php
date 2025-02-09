@@ -3,7 +3,7 @@ session_start();
 
 $servername = "localhost";
 $username = "yanreeho_yanree_db";
-$password = "B@4N+209rhMfoT";
+$password = "**********";
 $dbname = "yanreeho_yanree_db";
 
 if (isset($_SESSION['id_us'])) {
