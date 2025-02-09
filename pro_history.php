@@ -2,10 +2,10 @@
 session_start(); // เปิดการใช้งาน session
 
 // เชื่อมต่อกับฐานข้อมูล
-$servername = "localhost";
-$username = "yanreeho_yanree_db"; // ชื่อผู้ใช้ฐานข้อมูล
-$password = "B@4N+209rhMfoT"; // รหัสผ่านฐานข้อมูล
-$dbname = "yanreeho_yanree_db"; // ชื่อฐานข้อมูล
+$servername = "**********";
+$username = "**********";
+$password = "**********";
+$dbname = "**********";
 
 // สร้างการเชื่อมต่อ
 $conn = new mysqli($servername, $username, $password, $dbname);
