@@ -1,10 +1,10 @@
 .footer {
-    position: fixed; /* ใช้แค่ fixed เนื่องจากต้องการตรึงไว้ที่ด้านล่าง */
+    position: fixed; 
     background-color: #191970;
     color: white;
     text-align: center;
     width: 100%;
     padding: 1em;
     bottom: 0;
-    z-index: 1; /* ให้แน่ใจว่า footer อยู่เหนือเนื้อหาอื่น */
+    z-index: 1; 
 }
