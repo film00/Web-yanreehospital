@@ -59,8 +59,8 @@ ob_end_flush();
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background-image: url('../background.jpg'); /* กำหนดพื้นหลังเป็นรูปภาพ */
-            background-size: cover; /* ขยายรูปภาพให้ครอบคลุมพื้นที่ทั้งหมด */
+            background-image: url('../background.jpg'); 
+            background-size: cover; 
         }
 
         content {
