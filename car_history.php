@@ -13,9 +13,8 @@ if (isset($_SESSION['id_us'])) {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // ดึงข้อมูลจากตาราง use_car เฉพาะที่มี id_us_car ตรงกับ id_us ของผู้ใช้
         $stmt = $conn->prepare("SELECT * FROM use_car WHERE id_us_car = :id_us ORDER BY status_updated_at DESC");
-        $stmt->bindParam(':id_us', $id_us, PDO::PARAM_INT); // ป้องกันการโจมตี SQL Injection
+        $stmt->bindParam(':id_us', $id_us, PDO::PARAM_INT); 
         $stmt->execute();
         $useCars = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -39,20 +38,17 @@ if (isset($_SESSION['id_us'])) {
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,200&display=swap" rel="stylesheet">
     
     <style>
-        /* สีพื้นหลังสำหรับหัวตาราง */
         #myTable thead {
             background-color: #1E90FF;
             color: white;
         }
 
-        /* สีพื้นหลังสำหรับแถวที่เป็นเลขคู่ */
         #myTable tbody tr:nth-child(even) {
-            background-color: #f2f2f2; /* สีเทาอ่อน */
+            background-color: #f2f2f2;
         }
 
-        /* สีพื้นหลังสำหรับแถวที่เป็นเลขคี่ */
         #myTable tbody tr:nth-child(odd) {
-            background-color: #ffffff; /* สีขาว */
+            background-color: #ffffff; 
         }
         
     </style>
@@ -69,7 +65,7 @@ if (isset($_SESSION['id_us'])) {
                         <th>วันที่เริ่มใช้</th>
                         <th>วันที่สิ้นสุด</th>
                         <th>สถานะ</th>
-                        <th>วันที่ยื่นเรื่อง</th> <!-- เพิ่มคอลัมน์นี้ -->
+                        <th>วันที่ยื่นเรื่อง</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -81,7 +77,7 @@ if (isset($_SESSION['id_us'])) {
                             <td><?php echo htmlspecialchars($useCar['from_date']); ?></td>
                             <td><?php echo htmlspecialchars($useCar['up_date']); ?></td>
                             <td><?php echo htmlspecialchars($useCar['status_car']); ?></td>
-                            <td><?php echo htmlspecialchars($useCar['status_updated_at']); ?></td> <!-- เพิ่มการแสดงผลวันที่อัพเดทสถานะ -->
+                            <td><?php echo htmlspecialchars($useCar['status_updated_at']); ?></td> 
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -95,7 +91,7 @@ if (isset($_SESSION['id_us'])) {
     <script>
         $(document).ready(function() {
             $('#myTable').DataTable({
-                "order": [[6, "desc"]], // ตั้งค่าให้เรียงลำดับตามคอลัมน์วันที่อัพเดทสถานะ (คอลัมน์ที่ 7)
+                "order": [[6, "desc"]], 
                 "language": {
                     "decimal": "",
                     "emptyTable": "ไม่มีข้อมูลในตาราง",
