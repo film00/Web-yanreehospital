@@ -8,32 +8,28 @@
     $password = "**********";
     $dbname = "**********";
 
-    // ตรวจสอบว่ามีค่า id_us ใน session หรือไม่
 if (isset($_SESSION['id_us'])) {
     $id_us = $_SESSION['id_us'];
 
-    // คำสั่ง SQL สำหรับดึงข้อมูลผู้ใช้จากฐานข้อมูล
     $sql = "SELECT * FROM users WHERE id_us = :id_us";
 
-    // ใช้การเชื่อมต่อฐานข้อมูลที่ตั้งค่าเป็น UTF-8
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // ทำการ prepare และ execute คำสั่ง SQL
+    
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id_us', $id_us, PDO::PARAM_INT);
     $stmt->execute();
 
-    // Fetch ข้อมูลผู้ใช้
+   
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
-        // หากไม่พบข้อมูลผู้ใช้ ให้ทำการ redirect หรือทำอะไรตามที่ต้องการ
+       
         header("Location: index.php");
         exit();
     }
 } else {
-    // หากไม่มี id_us ใน session ให้ทำการ redirect หรือทำอะไรตามที่ต้องการ
+    
     header("Location: index.php");
     exit();
 }
@@ -58,7 +54,7 @@ if (isset($_SESSION['id_us'])) {
             box-sizing: border-box;
             background-color: #f5f5f5;
             background-image: url('../background.jpg'); 
-            background-size: cover; /* ขยายรูปภาพให้ครอบคลุมพื้นที่ทั้งหมด */
+            background-size: cover; 
         }
 
         content {
