@@ -1,6 +1,6 @@
 <?php
 session_start();
-ob_start(); // เริ่มการ buffer output
+ob_start();
 require_once "./nav/navbar_addmin.php";
 require_once "./footer/footer.php";
  
@@ -9,8 +9,6 @@ $username = "**********";
 $password = "**********";
 $dbname = "**********";
 
-
-// ตรวจสอบว่ามีค่า id_us ใน session หรือไม่
 if (isset($_SESSION['id_us'])) { 
     $id_us = $_SESSION['id_us'];
 
@@ -18,17 +16,14 @@ if (isset($_SESSION['id_us'])) {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // ตรวจสอบว่ามีคำขอลบหรือไม่
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_car_id'])) {
             $deleteCarId = $_POST['delete_car_id'];
 
-            // ดึงข้อมูลรถที่จะลบ
             $stmt = $conn->prepare("SELECT picture_name FROM car WHERE id_car = :id_car");
             $stmt->bindParam(':id_car', $deleteCarId, PDO::PARAM_INT);
             $stmt->execute();
             $car = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // ลบรูปภาพถ้ามี
             if (!empty($car['picture_name'])) {
                 $filePath = './imagecar/' . $car['picture_name'];
                 if (file_exists($filePath)) {
@@ -36,13 +31,11 @@ if (isset($_SESSION['id_us'])) {
                 }
             }
 
-            // ลบรถจากฐานข้อมูล
             $deleteStmt = $conn->prepare("DELETE FROM car WHERE id_car = :id_car");
             $deleteStmt->bindParam(':id_car', $deleteCarId, PDO::PARAM_INT);
             $deleteStmt->execute();
         }
 
-        // ดึงข้อมูลรถยนต์ทั้งหมด
         $carStmt = $conn->prepare("SELECT * FROM car");
         $carStmt->execute();
         $cars = $carStmt->fetchAll(PDO::FETCH_ASSOC);
@@ -56,7 +49,7 @@ if (isset($_SESSION['id_us'])) {
 }
 
 $conn = null;
-ob_end_flush(); // ปล่อย buffer output
+ob_end_flush(); 
 ?>
 
 <!DOCTYPE html>
@@ -77,7 +70,7 @@ ob_end_flush(); // ปล่อย buffer output
             box-sizing: border-box;
             background-color: #f5f5f5;
             background-image: url('../background.jpg'); 
-            background-size: cover; /* ขยายรูปภาพให้ครอบคลุมพื้นที่ทั้งหมด */
+            background-size: cover; 
             margin-bottom: 3rem;
         }
 
@@ -335,7 +328,7 @@ ob_end_flush(); // ปล่อย buffer output
         }
 
         .cancel-button {
-            background-color: #f44336; /* สีแดง */
+            background-color: #f44336; 
             color: white;
             padding: 10px 20px;
             border: none;
@@ -345,7 +338,7 @@ ob_end_flush(); // ปล่อย buffer output
         }
 
         .cancel-button:hover {
-            background-color: #d32f2f; /* สีแดงเข้มเมื่อเอาเมาส์ไปชี้ */
+            background-color: #d32f2f; 
         }
 
         th {
@@ -360,31 +353,31 @@ ob_end_flush(); // ปล่อย buffer output
         }
                 
         .container {
-            display: flex; /* ใช้ Flexbox สำหรับจัดตำแหน่งลิงก์ */
-            justify-content: space-between; /* จัดตำแหน่งให้มีพื้นที่ระหว่างลิงก์เท่ากัน */
-            align-items: center; /* จัดตำแหน่งกลางแนวตั้ง */
-            width: 100%; /* ให้คอนเทนเนอร์มีความกว้างเต็มที่ */
+            display: flex; 
+            justify-content: space-between;
+            align-items: center; 
+            width: 100%; 
         }
 
         table {
-            width: 100%; /* ให้ตารางใช้ความกว้างทั้งหมดของคอนเทนเนอร์ */
-            border-collapse: collapse; /* รวมขอบของเซลล์ให้ไม่ทับซ้อน */
+            width: 100%; 
+            border-collapse: collapse; 
         }
         .action-container {
             display: flex;
-            justify-content: center; /* จัดให้อยู่ตรงกลางในแนวนอน */
-            align-items: center; /* จัดให้อยู่ตรงกลางในแนวตั้ง */
-            gap: 20px; /* ระยะห่างระหว่างปุ่มแก้ไขกับลบ */
+            justify-content: center; 
+            align-items: center; 
+            gap: 20px; 
         }
 
         .action-link {
             display: flex;
-            align-items: center; /* จัดไอคอนและข้อความให้อยู่ตรงกลางในแนวตั้ง */
-            text-decoration: none; /* ลบขีดเส้นใต้ */
+            align-items: center; 
+            text-decoration: none; 
         }
 
         .action-link svg {
-            margin-right: 5px; /* ระยะห่างระหว่างไอคอนกับข้อความ */
+            margin-right: 5px; 
         }
 
                 
