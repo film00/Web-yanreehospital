@@ -6,28 +6,21 @@ $username = "**********";
 $password = "**********";
 $dbname = "**********";
 
-  
-// ตรวจสอบว่ามีค่า id_us ใน session หรือไม่
 if (isset($_SESSION['id_us'])) {
     $id_us = $_SESSION['id_us'];
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        // คำสั่ง SQL สำหรับดึงข้อมูลโครงการที่ id_us_pro ตรงกับ id_us ใน session
         $sql = "SELECT * FROM project WHERE id_us_pro = :id_us_pro";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id_us_pro', $id_us, PDO::PARAM_INT);
         $stmt->execute();
-
-        // Fetch ข้อมูลโครงการ
         $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         echo "Connection failed: " . $e->getMessage();
     }
 } else {
-    // หากไม่มี id_us ใน session ให้ทำการ redirect หรือทำอะไรตามที่ต้องการ
     header("Location: index.php");
     exit();
 }
@@ -241,21 +234,14 @@ if (isset($_SESSION['id_us'])) {
                                     if ($project['status_pro'] === 'รออนุมัติ') {
                                         echo 'รออนุมัติ';
                                     } elseif ($project['status_pro'] === 'ไม่อนุมัติ' || $project['status_pro'] === 'อนุมัติ') {
-                                        // ตรวจสอบว่ามีความคิดเห็นหรือไม่
-                                        $comments = !empty($project['comments']) ? htmlspecialchars($project['comments']) : 'ไม่มีความคิดเห็น';
-                                        
-                                        // กำหนดจำนวนตัวอักษรสูงสุดที่จะแสดง (เช่น 20 ตัวอักษร)
+                                        $comments = !empty($project['comments']) ? htmlspecialchars($project['comments']) : 'ไม่มีความคิดเห็น';    
                                         $maxLength = 20;
                                         
-                                        if (strlen($comments) > $maxLength) {
-                                            // แสดงเฉพาะบางส่วนของความคิดเห็น
+                                        if (strlen($comments) > $maxLength) {    
                                             $shortComments = substr($comments, 0, $maxLength) . '...';
                                             echo $shortComments;
-
-                                            // สร้างปุ่มเพื่อดูความคิดเห็นทั้งหมดใน popup
                                             echo ' <a href="#" onclick="showFullComments(\'' . addslashes($comments) . '\')">ดูทั้งหมด</a>';
                                         } else {
-                                            // ถ้าข้อความไม่ยาวเกินไปก็แสดงทั้งหมดได้เลย
                                             echo $comments;
                                         }
                                     }
@@ -264,7 +250,6 @@ if (isset($_SESSION['id_us'])) {
                                 <td class="t1" style="max-height: 50px; overflow: auto">
                                     <?php
                                     if ($project['status_pro'] === 'อนุมัติ') {
-                                        // ใช้ echo ซ้อนกันแบบนี้ไม่ถูกต้อง ต้องเปลี่ยนเป็นการใช้ตัวแปรหรือการรวมสตริง
                                         $link = "generate_pdf.php?id_project=" . htmlspecialchars($project['id_project']);
                                         echo '<a href="' . $link . '">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cloud-download" viewBox="0 0 16 16">
@@ -301,27 +286,20 @@ if (isset($_SESSION['id_us'])) {
                                         if ($project['status_pro'] === 'อนุมัติ') {
                                             if (!empty($project['summarize_name']) && !empty($project['summarize_path'])) {
                                                 $fileExtension = pathinfo($project['summarize_name'], PATHINFO_EXTENSION);
-
-                                                // ตรวจสอบนามสกุลไฟล์และแสดงลิงก์ที่เหมาะสม
-                                                if ($fileExtension === 'pdf') {
-                                                    // สำหรับไฟล์ PDF ให้เปิดในแท็บใหม่
+                                                if ($fileExtension === 'pdf') {                            
                                                     echo "<a href='https://yanreehospital.com/summarize/" . htmlspecialchars($project['summarize_name']) . "' target='_blank'>" . htmlspecialchars($project['summarize_name']) . "</a>";
-                                                } else {
-                                                    // สำหรับไฟล์ประเภทอื่นๆ ให้ดาวน์โหลด
+                                                } else {              
                                                     echo "<a href='https://yanreehospital.com/summarize/" . htmlspecialchars($project['summarize_name']) . "' download>" . htmlspecialchars($project['summarize_name']) . "</a>";
                                                 }
-                                            } else {
-                                                // ถ้าไม่มีข้อมูล summarize_name ให้แสดงไอคอนแสดงว่าไม่มีไฟล์
+                                            } else {                               
                                                 echo '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16" color="red">
                                                         <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1z"/>
                                                         <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
                                                     </svg>';
                                             }
                                         } elseif ($project['status_pro'] === 'ไม่อนุมัติ') {
-                                            // แสดงข้อความเมื่อโครงการไม่อนุมัติ
                                             echo 'โครงการไม่ถูกอนุมัติ';
                                         } elseif ($project['status_pro'] === 'รออนุมัติ') {
-                                            // แสดงข้อความเมื่อโครงการรออนุมัติ
                                             echo 'รออนุมัติ';
                                         }
                                     ?>
@@ -333,8 +311,6 @@ if (isset($_SESSION['id_us'])) {
             </div>
         </div>
     </content>
-
-    <!-- ส่วนของ popup -->
     <div id="commentsPopup" style="display:none; position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid #ccc;">
         <div id="popupContent"></div>
         <button onclick="closePopup()" style="background-color:red; color:white; padding:10px; border:none; cursor:pointer;">ปิด</button>
@@ -366,7 +342,7 @@ if (isset($_SESSION['id_us'])) {
                         "previous": "ก่อนหน้า"
                     }
                 },
-                "order": [] // ปิดการเรียงลำดับ
+                "order": [] 
             });
         }); 
 
