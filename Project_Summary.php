@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-// ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
 if (!isset($_SESSION['id_us'])) {
     echo "ไม่พบข้อมูลผู้ใช้งาน";
     exit;
 }
 
-// ประกาศตัวแปรจากเซสชัน
 $id_us = $_SESSION['id_us'];
 
 require_once "./nav/navbar_boss.php";
@@ -31,18 +29,18 @@ require_once "./footer/footer.php";
             box-sizing: border-box;
             background-color: #f5f5f5;
             background-image: url('../background.jpg'); 
-            background-size: cover; /* ขยายรูปภาพให้ครอบคลุมพื้นที่ทั้งหมด */
+            background-size: cover; 
         }
 
         .container {
-            margin-bottom: 100px; /* ระยะห่างด้านล่าง */
+            margin-bottom: 100px; 
             background-color: #CCFF99;
-            padding: 20px; /* เพิ่ม padding เพื่อทำให้ขนาดใหญ่ขึ้น */
+            padding: 20px; 
         }
 
         #projectTable {
-            margin-top: 0; /* ลดระยะห่างด้านบนของตาราง */
-            margin-bottom: 0; /* ลดระยะห่างด้านล่างของตาราง */
+            margin-top: 0; 
+            margin-bottom: 0; 
         }
 
         .header-text {
@@ -76,16 +74,16 @@ require_once "./footer/footer.php";
             background-color: #1E90FF;
             color: white;
         }
-        /* เปลี่ยนพื้นหลังของแถวคู่เป็นสีเทาอ่อน */
+        
         td:nth-child(even) {
-            background-color: #f2f2f2; /* สีเทาอ่อนสำหรับแถวคู่ */
+            background-color: #f2f2f2; 
         }
-        /* แถวคี่มีพื้นหลังเป็นสีขาว */
+       
         td:nth-child(odd) {
-            background-color: #ffffff; /* สีขาวสำหรับแถวคี่ */
+            background-color: #ffffff; 
         }
         td:hover {
-            background-color: #e0e0e0; /* สีเทาอ่อนเมื่อชี้เมาส์ */
+            background-color: #e0e0e0; 
         }
     </style>
 </head>
@@ -105,29 +103,24 @@ require_once "./footer/footer.php";
             </thead>
             <tbody>
                 <?php
-                // เชื่อมต่อฐานข้อมูล MySQL
+            
                 $servername = "localhost";
                 $username = "yanreeho_yanree_db";
                 $password = "B@4N+209rhMfoT";
                 $dbname = "yanreeho_yanree_db";
 
-                // สร้างการเชื่อมต่อ
                 $conn = new mysqli($servername, $username, $password, $dbname);
 
-                // ตรวจสอบการเชื่อมต่อ
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
 
-                // ดึงข้อมูลจากตาราง project โดยไม่สนใจ id_us_pro แต่เลือกเฉพาะที่มี status_pro = 'อนุมัติ'
                 $sql = "SELECT name_project, name_us, rank_us_pro, summarize_name, summarize_path 
                         FROM project 
                         WHERE status_pro = 'อนุมัติ'";
 
-                // รันคำสั่ง SQL
                 $result = $conn->query($sql);
 
-                // แสดงข้อมูลใน table
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                         echo "<tr>";
@@ -135,7 +128,6 @@ require_once "./footer/footer.php";
                         echo "<td>" . $row["name_us"] . "</td>";
                         echo "<td>" . $row["rank_us_pro"] . "</td>";
                         
-                        // เช็คว่ามีชื่อสรุปโครงการและ path หรือไม่
                         if (!empty($row['summarize_name']) && !empty($row['summarize_path'])) {
                             $fileExtension = pathinfo($row['summarize_name'], PATHINFO_EXTENSION);
                             if ($fileExtension === 'pdf') {
@@ -153,14 +145,12 @@ require_once "./footer/footer.php";
                     echo "<tr><td colspan='4'>ไม่มีข้อมูล</td></tr>";
                 }
 
-                // ปิดการเชื่อมต่อฐานข้อมูล
                 $conn->close();
                 ?>
             </tbody>
         </table>
     </div>
 
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- DataTable JS -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -182,7 +172,7 @@ require_once "./footer/footer.php";
                     "previous": "ก่อนหน้า"
                 }
             },
-            "order": [] // ปิดการเรียงลำดับจาก DataTables
+            "order": [] 
         });
     });
     </script>
