@@ -14,15 +14,12 @@ if (isset($_SESSION['id_us'])) {
     exit();
 }
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Query to get the count of projects where status has changed from 'รออนุมัติ' to 'อนุมัติ' or 'ไม่อนุมัติ'
 $sql_projects = "
     SELECT 
         (SELECT COUNT(*) 
@@ -39,14 +36,13 @@ $sql_projects = "
          AND summarize_name <> '') AS project_count";
 
 $stmt_projects = $conn->prepare($sql_projects);
-$stmt_projects->bind_param("ii", $id_us, $id_us); // เนื่องจากมีสอง ? ต้องผูกค่าให้ทั้งสอง
+$stmt_projects->bind_param("ii", $id_us, $id_us); 
 $stmt_projects->execute();
 $result_projects = $stmt_projects->get_result();
 $row_projects = $result_projects->fetch_assoc();
-$project_count = max(0, $row_projects['project_count']); // ใช้ max เพื่อไม่ให้ค่าติดลบ
+$project_count = max(0, $row_projects['project_count']); 
 $stmt_projects->close();
 
-// Query to get the count of car requests where status has changed from 'รออนุมัติ' to 'อนุมัติ' or 'ไม่อนุมัติ'
 $sql_cars = "
     SELECT COUNT(*) AS car_count 
     FROM use_car 
@@ -62,10 +58,8 @@ $row_cars = $result_cars->fetch_assoc();
 $car_count = $row_cars['car_count'];
 $stmt_cars->close();
 
-// คำนวณค่าแจ้งเตือนรวม
 $notification_count = $project_count + $car_count;
 
-// เก็บค่าใน session
 $_SESSION['notification_count'] = $notification_count;
 
 $conn->close();
@@ -141,7 +135,7 @@ $conn->close();
     }
 
     .main-column {
-        flex: 1; /* ขยายให้เต็มพื้นที่ที่เหลือ */
+        flex: 1; 
         padding: 20px;
         background-color: #CCFF99;
         border-radius: 8px;
@@ -151,22 +145,21 @@ $conn->close();
     }
 
     .nav-link {
-        border: 1px solid #ccc; /* Border properties */
-        border-radius: 8px; /* Rounded corners */
-        padding: 10px; /* Padding around each link */
+        border: 1px solid #ccc; 
+        border-radius: 8px; 
+        padding: 10px; 
         display: block;
-        text-decoration: none; /* Remove underline */
-        color: #000; /* Link text color */
-        transition: all 0.3s ease; /* Smooth transition */
+        text-decoration: none; 
+        color: #000; 
+        transition: all 0.3s ease; 
     }
 
     .nav-link:hover {
-        background-color: #f0f0f0; /* Background color on hover */
+        background-color: #f0f0f0; 
     }
  
     .nav-link svg {
-        /* Icon styles */
-        margin-bottom: 5px; /* Adjust spacing */
+        margin-bottom: 5px; 
     }
     @media (max-width: 768px) {
     .sidebar-column {
@@ -192,7 +185,6 @@ $conn->close();
                             <path d="M10 0a2 2 0 1 1-4 0H3.5A1.5 1.5 0 0 0 2 1.5v13A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 12.5 0zM4.5 5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1m0 2h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1"/>
                         </svg><br>
                         <span>โครงการ</span>
-                        <!-- Display the project count -->
                         <span style="color: red;">(<?php echo $project_count; ?>)</span>
                     </a>
                 </li> 
@@ -203,37 +195,29 @@ $conn->close();
                             <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5-.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.45.276l-.956 1.913Z"/>
                         </svg><br>
                         <span>ขออนุญาตไปราชการ</span>
-                        <!-- Display the car request count -->
                         <span style="color: red;">(<?php echo $car_count; ?>)</span>
                     </a>
                 </li>
             </ul>
         </div>
 
-        <!-- Main content column -->
         <div class="main-column">
             <h3 class="h3">โปรดเลือกจากเมนูด้านซ้าย</h3>
         </div>
     </div>
 
-    <!-- Bootstrap and jQuery scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script>
     $(document).ready(function() {
-        // Load indexform.php content on page load
         $('.main-column').load('Status_and_replies_pro.php');
-
-        // When clicking on the "แบบฟอร์มโครงการ" link
         $('a[href="Status_and_replies_pro.php"]').click(function(event) {
             event.preventDefault(); // Prevent the default action of the link
             // Load content from indexform.php into main-column
             $('.main-column').load($(this).attr('href'));
         });
-
-        // When clicking on the "ประวัติการทำโครงการ" link
         $('a[href="Status_and_replies_car.php"]').click(function(event) {
             event.preventDefault(); // Prevent the default action of the link
             // Load content from users_record.php into main-column
