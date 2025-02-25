@@ -16,18 +16,11 @@ if (isset($_SESSION['id_us'])) {
     try {  
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        // คำสั่ง SQL สำหรับดึงข้อมูลการใช้รถที่ id_us_car ตรงกับ id_us ใน session
         $sql = "SELECT * FROM use_car WHERE id_us_car = :id_us_car";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id_us_car', $id_us, PDO::PARAM_INT);
         $stmt->execute();
-
-        // Fetch ข้อมูลการใช้รถ
         $use_car_requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        
-
     } catch (PDOException $e) {
         echo "Connection failed: " . $e->getMessage();
     }
@@ -57,11 +50,11 @@ if (isset($_SESSION['id_us'])) {
             padding: 0;
             box-sizing: border-box;
             background-image: url('../background.jpg'); 
-            background-size: cover; /* ทำให้รูปครอบคลุมพื้นที่ทั้งหมด */
-            background-repeat: no-repeat; /* ไม่ให้รูปภาพซ้ำซ้อน */
-            background-attachment: fixed; /* ทำให้พื้นหลังไม่เลื่อนตามหน้า */
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
             width: 100%;
-            min-height: 100vh; /* กำหนดความสูงขั้นต่ำให้เต็มหน้าจอ */
+            min-height: 100vh; 
         }
 
 
@@ -206,10 +199,9 @@ if (isset($_SESSION['id_us'])) {
         .h2 {
             color: #ffffff;
         }
-          /* กำหนดความกว้างของเนื้อหา */
           .content-wrapper {
-            max-width: 100%; /* จำกัดความกว้างของเนื้อหาตามขนาดของ viewport */
-            overflow-x: auto; /* เลื่อนแนวนอนเมื่อเนื้อหากว้างกว่า */
+            max-width: 100%; 
+            overflow-x: auto; 
             background-color: #ffffff;
         }
     </style>
@@ -282,8 +274,6 @@ if (isset($_SESSION['id_us'])) {
                     }
                 });
             }
-
-            // ตั้งเวลาให้เรียกตรวจสอบทุก 30 วินาที
             setInterval(checkForUpdates, 30000);
         });
     </script>
