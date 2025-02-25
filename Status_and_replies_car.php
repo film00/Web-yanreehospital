@@ -15,27 +15,18 @@ if (isset($_SESSION['id_us'])) {
     try { 
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        // คำสั่ง SQL สำหรับดึงข้อมูลการใช้รถที่ id_us_car ตรงกับ id_us ใน session
         $sql = "SELECT * FROM use_car WHERE id_us_car = :id_us_car";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id_us_car', $id_us, PDO::PARAM_INT);
         $stmt->execute();
-
-        // Fetch ข้อมูลการใช้รถ
         $use_car_requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // ตรวจสอบการเปลี่ยนแปลงสถานะ
         $sqlCheck = "SELECT COUNT(*) as count FROM use_car WHERE id_us_car = :id_us_car AND status_car IN ('อนุมัติ', 'ไม่อนุมัติ') AND checked = 0";
         $stmtCheck = $conn->prepare($sqlCheck);
         $stmtCheck->bindParam(':id_us_car', $id_us, PDO::PARAM_INT);
         $stmtCheck->execute();
-
         $resultCheck = $stmtCheck->fetch(PDO::FETCH_ASSOC);
         if ($resultCheck['count'] > 0) {
             $notification = 'มีการเปลี่ยนแปลงสถานะ ' . $resultCheck['count'] . ' รายการ';
-
-            // อัพเดตข้อมูลว่าได้ทำการตรวจสอบแล้ว
             $updateSql = "UPDATE use_car SET checked = 1 WHERE id_us_car = :id_us_car AND status_car IN ('อนุมัติ', 'ไม่อนุมัติ')";
             $updateStmt = $conn->prepare($updateSql);
             $updateStmt->bindParam(':id_us_car', $id_us, PDO::PARAM_INT);
@@ -264,8 +255,7 @@ if (isset($_SESSION['id_us'])) {
                                 </td>
                                 <td class="t1" style="text-align: center; vertical-align: middle;">
                                     <?php
-                                    if ($request['status_car'] === 'อนุมัติ') {
-                                        // ใช้ echo ซ้อนกันแบบนี้ไม่ถูกต้อง ต้องเปลี่ยนเป็นการใช้ตัวแปรหรือการรวมสตริง
+                                    if ($request['status_car'] === 'อนุมัติ') { 
                                         $link = "generate_car_pdf.php?idusecar=" . htmlspecialchars($request['idusecar']);
                                         echo '<a href="' . $link . '">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cloud-download" viewBox="0 0 16 16">
@@ -309,7 +299,7 @@ if (isset($_SESSION['id_us'])) {
                         "previous": "ก่อนหน้า"
                     }
                 },
-                "order": [] // ปิดการเรียงลำดับ
+                "order": [] 
             });
 
             function checkForUpdates() {
@@ -327,8 +317,6 @@ if (isset($_SESSION['id_us'])) {
                     }
                 });
             }
-
-            // ตั้งเวลาให้เรียกตรวจสอบทุก 30 วินาที
             setInterval(checkForUpdates, 30000);
         });
     </script>
