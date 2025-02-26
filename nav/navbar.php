@@ -1,8 +1,7 @@
 <?php
 session_start();
-// Initialize notification count if not set
 if (!isset($_SESSION['notification_count'])) {
-    $_SESSION['notification_count'] = 0; // or set to the actual value from your application logic
+    $_SESSION['notification_count'] = 0; 
 }
 $notification_count = $_SESSION['notification_count'];
 ?>
@@ -46,7 +45,7 @@ $notification_count = $_SESSION['notification_count'];
             font-size: 0.8em; 
             position: relative; 
             display: inline-block; 
-            margin-left: 0.5em; /* Adjusted margin for better alignment */
+            margin-left: 0.5em; 
         }
     </style>
     <title>Dropdown Example</title>
@@ -115,11 +114,6 @@ $notification_count = $_SESSION['notification_count'];
         </div>
     </div> 
 
-
- 
-    
-            
-
     <script>
         function toggleDropdown(event) {
             event.preventDefault();
@@ -137,16 +131,13 @@ $notification_count = $_SESSION['notification_count'];
         }
 
         function markAsRead() {
-            // AJAX request to mark notifications as read
-            // Example AJAX request (make sure to handle response appropriately)
             fetch('mark_notifications.php', {
                 method: 'POST',
-                credentials: 'include' // Ensure cookies (session) are sent with request
+                credentials: 'include' 
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Successfully marked as read, update notification count
                     document.querySelector('.notification-count').textContent = 0;
                 }
             })
@@ -166,8 +157,6 @@ $notification_count = $_SESSION['notification_count'];
             const submenuContent = event.target.nextElementSibling;
             submenuContent.style.display = submenuContent.style.display === 'block' ? 'none' : 'block';
         }
-
-        // Close the dropdown if the user clicks outside of it
         window.onclick = function(event) {
             if (!event.target.matches('.dropbtn') && !event.target.matches('.submenu-link')) {
                 const dropdowns = document.querySelectorAll('.dropdown .dropdown-content');
