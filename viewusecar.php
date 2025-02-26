@@ -197,11 +197,8 @@ if (isset($_GET['id'])) {
             $id_us = $_SESSION['id_us']; 
         
             try {
-                // Create a new PDO connection for fetching user data
                 $userConn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
                 $userConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-                // Fetch user details
                 $userStmt = $userConn->prepare("SELECT * FROM users WHERE id_us = :id_us");
                 $userStmt->bindParam(':id_us', $id_us);
                 $userStmt->execute();
@@ -213,7 +210,6 @@ if (isset($_GET['id'])) {
                     $name_boss = $user['name'] . ' ' . $user['last_name'];
         
                     if (!empty($status_car)) {
-                        // Update the use_car status
                         $updateStmt = $conn->prepare("UPDATE use_car SET 
                             status_car = :status_car, 
                             comments = :comment, 
@@ -223,8 +219,6 @@ if (isset($_GET['id'])) {
                             name_boss = :name_boss
                             WHERE idusecar = :idusecar"
                         );
-        
-                        // Bind parameters
                         $updateStmt->bindParam(':status_car', $status_car);
                         $updateStmt->bindParam(':comment', $comment);
                         $updateStmt->bindParam(':id_us', $id_us);
@@ -232,8 +226,6 @@ if (isset($_GET['id'])) {
                         $updateStmt->bindParam(':prefix_boss', $prefix_boss);
                         $updateStmt->bindParam(':name_boss', $name_boss);
                         $updateStmt->bindParam(':idusecar', $id_usecar);
-        
-                        // Execute the update
                         $updateStmt->execute();
         
                         echo "<script>alert('อัพเดตสำเร็จ'); window.location.href='request.php';</script>";
