@@ -133,8 +133,8 @@ if (isset($_GET['id'])) {
                         text-align: center;
                     }
                     .commenttext {
-                        width: 100%; /* กำหนดความกว้าง */
-                        height: 150px; /* กำหนดความสูง */
+                        width: 100%; 
+                        height: 150px; 
                     }
 
                 </style>
