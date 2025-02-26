@@ -15,35 +15,33 @@ $projects = isset($_SESSION['projects']) ? $_SESSION['projects'] : [];
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <style>
-        /* เพิ่มสีพื้นหลังให้กับหัวตาราง */
         #projectTable thead th {
             background-color: #1E90FF;
             color: white;
-            border: 1px solid #ddd; /* เพิ่มเส้นรอบหัวตาราง */
+            border: 1px solid #ddd; 
         }
 
-        /* เพิ่มเส้นรอบตารางทั้งหมด */
         #projectTable {
             border-collapse: collapse;
-            border: 1px solid #000; /* เส้นรอบตาราง */
-            width: 100%; /* ให้ตารางขยายเต็มความกว้างของ container */
+            border: 1px solid #000; 
+            width: 100%; 
         }
 
         #projectTable th, #projectTable td {
-            border: 1px solid #000; /* เส้นรอบเซลล์ */
-            padding: 8px; /* เพิ่มระยะห่างภายในเซลล์ */
+            border: 1px solid #000; 
+            padding: 8px; 
         }
 
         #projectTable tr:nth-child(even) {
-            background-color: #f2f2f2; /* สีเทาอ่อน */
+            background-color: #f2f2f2; 
         }
 
         #projectTable tr:nth-child(odd) {
-            background-color: #ffffff; /* สีขาว */
+            background-color: #ffffff; 
         }
 
         #projectTable tr:hover {
-            background-color: #e0e0e0; /* สีเทาอ่อนเมื่อชี้เมาส์ */
+            background-color: #e0e0e0;
         }
     </style>
 </head>
@@ -84,7 +82,7 @@ $projects = isset($_SESSION['projects']) ? $_SESSION['projects'] : [];
     <script>
         $(document).ready(function() {
             $('#projectTable').DataTable({
-                "order": [[2, "desc"]], // จัดเรียงตามคอลัมน์วันที่ (คอลัมน์ที่ 3) จากใหม่สุดไปเก่าสุด
+                "order": [[2, "desc"]], 
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
