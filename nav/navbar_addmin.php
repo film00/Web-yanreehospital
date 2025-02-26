@@ -10,7 +10,6 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
          
-            /* CSS สำหรับเมนูดรอปดาวน์ */
             .dropdown-content, .dropdown-content .dropdown-content {
                 display: none;
                 position: absolute;
@@ -71,7 +70,6 @@
     </ul>
 </nav> 
  
-<!-- Dropdown menu for mobile and tablet screens -->
 <div class="dropdown d-lg-none">
         <a class="btn dropbtn" href="#" onclick="toggleDropdown(event)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
