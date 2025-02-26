@@ -31,33 +31,24 @@ if (isset($_SESSION['id_us'])) {
 }
 
 try {
-    // กำหนดสีที่ต้องการให้วนไปใช้
     $colorCycle = ['#333399', '#556B2F', '#A0522D', '#9932CC', '#DA70D6', '#663399', '#336600'];
-    $colorIndex = 0; // ตัวแปรสำหรับติดตามตำแหน่งของสีใน array
+    $colorIndex = 0; 
 
     $stmt = $conn->prepare("SELECT name_project, name_us, Processing_time, status_pro FROM project");
     $stmt->execute();
     $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($projects as $project) {
-        // ตรวจสอบสถานะโครงการ
         if ($project['status_pro'] !== 'อนุมัติ') {
-            continue; // ข้ามไปยังรายการถัดไปหากสถานะไม่ใช่ "อนุมัติ"
+            continue; 
         }
-
-        // แปลงข้อมูล Processing_time เป็นวันที่เริ่มต้นและวันที่สิ้นสุด
         $processingTime = explode(" ถึง ", $project['Processing_time']);
         if (count($processingTime) == 2) {
             $startDate = DateTime::createFromFormat('d/m/Y', trim($processingTime[0]))->format('Y-m-d');
             $endDate = DateTime::createFromFormat('d/m/Y', trim($processingTime[1]))->format('Y-m-d');
-
-            // เพิ่มวันถัดไปใน end date
             $endDatePlusOne = (new DateTime($endDate))->modify('+1 day')->format('Y-m-d');
-
-            // ใช้สีตามลำดับใน array และวนรอบเมื่อถึงสีสุดท้าย
             $currentColor = $colorCycle[$colorIndex];
-            $colorIndex = ($colorIndex + 1) % count($colorCycle); // เพิ่ม index และวนรอบเมื่อถึงสีสุดท้าย
-
+            $colorIndex = ($colorIndex + 1) % count($colorCycle); 
             $events[] = [
                 'title' => $project['name_project'] . ' - ' . $project['name_us'],
                 'start' => $startDate,
@@ -83,14 +74,8 @@ try {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,200&display=swap" rel="stylesheet">
-
-    <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
-
-    <!-- FullCalendar Localization -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/th.min.js"></script>
-
-    <!-- Tippy.js CSS และ JS -->
     <link href="https://unpkg.com/tippy.js@6/animations/scale.css" rel="stylesheet">
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
@@ -112,16 +97,16 @@ try {
 
         main {
             flex: 1;
-            margin-bottom: 60px; /* เพิ่มระยะห่างที่ด้านล่างให้ฟุตเตอร์ไม่ทับเนื้อหา */
+            margin-bottom: 60px; 
         }
 
         footer {
-            position: fixed; /* ใช้ fixed เพื่อให้ฟุตเตอร์อยู่บนสุด */
+            position: fixed; 
             bottom: 0;
             left: 0;
             width: 100%;
-            z-index: 1000; /* ให้ฟุตเตอร์มีตำแหน่งสูงกว่าเนื้อหา */
-            background-color: #f8f9fa; /* สีพื้นหลังเพื่อความชัดเจน */
+            z-index: 1000; 
+            background-color: #f8f9fa; 
             padding: 10px;
             text-align: center;
         } 
@@ -142,12 +127,12 @@ try {
         }
 
         #calendar {
-            position: relative; /* ใช้ relative เพื่อให้มั่นใจว่า z-index ทำงานได้ */          
+            position: relative;          
             max-width: 1100px;
             margin: 50px auto;
             padding: 0 10px;
-            background-color: #FFFFCC; /* สีครีม */
-            border-radius: 8px; /* ทำให้มุมของปฏิทินมีความโค้ง */
+            background-color: #FFFFCC; 
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -169,25 +154,23 @@ try {
     <?php require_once "./footer/footer.php"; ?>
 </footer>
 
-<!-- FullCalendar JS -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
-            locale: 'th', // กำหนดให้ปฏิทินใช้ภาษาไทย
-            events: <?php echo json_encode($events); ?>, // ต้องใส่จุลภาคตรงนี้
+            locale: 'th', 
+            events: <?php echo json_encode($events); ?>, 
             buttonText: {
-                today: 'วันนี้' // เปลี่ยน "today" เป็น "วันนี้"
+                today: 'วันนี้' 
             },
-            eventMouseEnter: function(info) { // เพิ่ม eventMouseEnter ในการตั้งค่า
-                // ใช้ Tippy.js ในการแสดง popup 
+            eventMouseEnter: function(info) {  
                 tippy(info.el, {
-                    content: info.event.title, // แสดงชื่อของ event ใน popup
-                    placement: 'top',          // ตำแหน่ง popup (บน)
-                    animation: 'scale',        // กำหนด animation
-                    theme: 'light',            // ใช้ธีม light
+                    content: info.event.title, 
+                    placement: 'top',          
+                    animation: 'scale',       
+                    theme: 'light',            
                 });
             }
         });
