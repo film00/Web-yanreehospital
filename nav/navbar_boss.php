@@ -1,41 +1,28 @@
 <?php 
-// ตรวจสอบว่าเซสชันได้เริ่มต้นแล้วหรือไม่
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-
-// เชื่อมต่อฐานข้อมูล
     $servername = "localhost";
     $username = "yanreeho_yanree_db";
     $password = "B@4N+209rhMfoT";
     $dbname = "yanreeho_yanree_db";
 
 try {
-
-    //การแจ้งเตือน
-    // Create a new PDO instance
     $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Fetch notification counts
     $carNotificationStmt = $conn->prepare("SELECT COUNT(*) AS totalCarNotifications FROM use_car WHERE status_car = 'รออนุมัติ'");
     $carNotificationStmt->execute();
     $totalCarNotifications = $carNotificationStmt->fetch(PDO::FETCH_ASSOC)['totalCarNotifications'];
-
     $projectNotificationStmt = $conn->prepare("SELECT COUNT(*) AS totalProjectNotifications FROM project WHERE status_pro = 'รออนุมัติ'");
     $projectNotificationStmt->execute();
     $totalProjectNotifications = $projectNotificationStmt->fetch(PDO::FETCH_ASSOC)['totalProjectNotifications'];
-
-    // Calculate total notifications
     $totalNotifications = $totalCarNotifications + $totalProjectNotifications;
-
     $summarizeCount = isset($_SESSION['summarize_count']) ? $_SESSION['summarize_count'] : 0;
 
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
 
-// Close the database connection
 $conn = null;
 ?>
 
@@ -57,8 +44,8 @@ $conn = null;
             background-color: #f9f9f9;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 10; /* เพิ่ม z-index ให้มากกว่าค่าเดิม เพื่อให้เมนูอยู่ด้านบน */
-            top: 100%; /* เลื่อน dropdown ให้อยู่ด้านล่างของปุ่ม */
+            z-index: 10; 
+            top: 100%; 
             left: 0;
         }
 
@@ -78,7 +65,7 @@ $conn = null;
         }
 
         .dropdown-submenu .dropdown-content {
-            left: 100%; /* เลื่อนเมนูย่อยไปทางขวาของ dropdown หลัก */
+            left: 100%; 
             top: 0;
         }
 
@@ -112,7 +99,6 @@ $conn = null;
     </div>
 </div> 
 
-    <!-- Navbar for desktop screens -->
     <nav class="navbar d-none d-lg-block">
         <ul class="navbar-container">
             <li><a href="boss.php" class="btn-5"><img src="image/ชื่อโรงพยาบาล.jpg" alt="โรงพยาบาล"></a></li>
@@ -136,7 +122,6 @@ $conn = null;
                         </svg>
                     </a>
                 </li>
-                <!-- เมนูอื่น ๆ -->
                 <li class="menu-item"><a href="work_schedule.php">ตารางขอโครงการ</a></li>
                 <li class="menu-item"><a href="car_schedule.php">ตารางขอใช้รถ</a></li>
                 <li class="menu-item"><a href="pro_statisticsboss.php">สถิติโครงการ</a></li>
@@ -145,7 +130,6 @@ $conn = null;
         </ul>
     </nav>
 
-    <!-- Dropdown menu for mobile and tablet screens -->
     <div class="dropdown d-lg-none">
         <a class="btn dropbtn" href="#" onclick="toggleDropdown(event)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
@@ -194,8 +178,7 @@ $conn = null;
             const submenuContent = event.target.nextElementSibling;
             submenuContent.style.display = submenuContent.style.display === 'block' ? 'none' : 'block';
         }
-
-        // Close the dropdown if the user clicks outside of it
+    
         window.onclick = function(event) {
             if (!event.target.matches('.dropbtn') && !event.target.matches('.submenu-link')) {
                 const dropdowns = document.querySelectorAll('.dropdown .dropdown-content');
