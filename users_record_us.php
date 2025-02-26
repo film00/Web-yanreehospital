@@ -14,19 +14,13 @@ if (isset($_SESSION['id_us'])) {
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        // Fetch user data
         $userStmt = $conn->prepare("SELECT * FROM users WHERE id_us = :id_us");
         $userStmt->bindParam(':id_us', $id_us);
         $userStmt->execute();
         $user = $userStmt->fetch(PDO::FETCH_ASSOC);
-
-        // Define pagination variables for projects
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $perPage = 10; // You can adjust this value
         $offset = ($page - 1) * $perPage;
-
-        // Count total projects for pagination
         $countSql = "SELECT COUNT(*) AS total FROM project WHERE id_us_pro = :id_us";
         $countStmt = $conn->prepare($countSql);
         $countStmt->bindParam(':id_us', $id_us);
@@ -34,31 +28,24 @@ if (isset($_SESSION['id_us'])) {
         $countResult = $countStmt->fetch(PDO::FETCH_ASSOC);
         $totalProjects = $countResult['total'];
         $totalPagesForProjects = ceil($totalProjects / $perPage);
-
-        // Fetch project data with pagination
         $projectStmt = $conn->prepare("SELECT name_project, Processing_time, status_pro FROM project WHERE id_us_pro = :id_us LIMIT :perPage OFFSET :offset");
         $projectStmt->bindParam(':id_us', $id_us);
         $projectStmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
         $projectStmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $projectStmt->execute();
         $projects = $projectStmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Fetch all use_car data without pagination
         $pageUseCar = isset($_GET['pageUseCar']) ? (int)$_GET['pageUseCar'] : 1;
         $offsetUseCar = ($pageUseCar - 1) * $perPage;
-
         $useCarStmt = $conn->prepare("SELECT * FROM use_car LIMIT :perPage OFFSET :offset");
         $useCarStmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
         $useCarStmt->bindParam(':offset', $offsetUseCar, PDO::PARAM_INT);
         $useCarStmt->execute();
         $useCars = $useCarStmt->fetchAll(PDO::FETCH_ASSOC);
-
         $countUseCarSql = "SELECT COUNT(*) AS total FROM use_car";
         $countUseCarStmt = $conn->prepare($countUseCarSql);
         $countUseCarStmt->execute();
         $countUseCarResult = $countUseCarStmt->fetch(PDO::FETCH_ASSOC);
         $totalUseCars = $countUseCarResult['total'];
-
         $totalPagesForUseCar = ceil($totalUseCars / $perPage);
 
     } catch (PDOException $e) {
@@ -126,7 +113,7 @@ if (isset($_SESSION['id_us'])) {
 
         .d-flex {
             display: flex;
-            flex-direction: row; /* แนวตั้ง */
+            flex-direction: row; 
         }
 
         .sidebar-column {
@@ -141,7 +128,7 @@ if (isset($_SESSION['id_us'])) {
         }
 
         .main-column {
-            flex: 1; /* ขยายให้เต็มพื้นที่ที่เหลือ */
+            flex: 1; 
             padding: 20px;
             background-color: #CCFF99;
             border-radius: 8px;
@@ -277,7 +264,6 @@ if (isset($_SESSION['id_us'])) {
        
         }
 
-        /* สำหรับหน้าจอขนาดกลาง (แท็บเล็ต) */
         @media (min-width: 768px) and (max-width: 991px) {
             .d-flex {
                 flex-direction: row;
@@ -349,16 +335,13 @@ if (isset($_SESSION['id_us'])) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.th.min.js"></script>
         <script>
         $(document).ready(function() {
-            // Load proindexaddmin_record.php content on page load
             $('.main-column').load('pro_history.php');
 
-            // When clicking on the "คำร้องขอโครงการ" link
             $('a[href="pro_history.php"]').click(function(e) {
                 e.preventDefault();
                 $('.main-column').load('pro_history.php');
             });
 
-            // When clicking on the "คำร้องขออนุญาตไปราชการและขอใช้รถราชการ" link
             $('a[href="car_history.php"]').click(function(e) {
                 e.preventDefault();
                 $('.main-column').load('car_history.php');
@@ -367,10 +350,8 @@ if (isset($_SESSION['id_us'])) {
 
         $(document).ready(function() {
             
-            // เรียกใช้ฟังก์ชันเมื่อลดขนาดหน้าจอ
             $(window).resize(adjustLayout);
             
-            // เรียกใช้ฟังก์ชันเมื่อโหลดหน้าเว็บ
             adjustLayout();
         });
 
