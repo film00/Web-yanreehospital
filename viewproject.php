@@ -155,12 +155,10 @@ if (isset($_GET['id'])) {
                 $fileExtension = pathinfo($project['file_name'], PATHINFO_EXTENSION);
             ?>
             <?php if ($fileExtension === 'pdf'): ?>
-                <!-- เปิดไฟล์ PDF ในแท็บใหม่ -->
                 <p><a href="https://yanreehospital.com/file/<?php echo htmlspecialchars($project['file_name']); ?>" target="_blank">
                     <?php echo htmlspecialchars($project['file_name']); ?>
                 </a></p>
             <?php else: ?>
-                <!-- ดาวน์โหลดไฟล์อื่น ๆ -->
                 <p><a href="https://yanreehospital.com/file/<?php echo htmlspecialchars($project['file_name']); ?>" download>
                     <?php echo htmlspecialchars($project['file_name']); ?>
                 </a></p>
@@ -206,7 +204,7 @@ if (isset($_GET['id'])) {
 
             if (!isChecked) {
                 alert('กรุณาเลือกสถานะอนุมัติหรือไม่อนุมัติ');
-                e.preventDefault(); // ป้องกันการส่งฟอร์ม
+                e.preventDefault(); 
             }
         });
     </script>
@@ -221,10 +219,9 @@ if (isset($_GET['id'])) {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $comment = empty($_POST['comment']) ? "ไม่มี" : $_POST['comment'];
             $status = $_POST['status'];
-            $id_us = $_SESSION['id_us']; // ID ของผู้ใช้งานที่กำลังเข้าสู่ระบบ
+            $id_us = $_SESSION['id_us']; 
         
             try {
-                // ดึงข้อมูลผู้ใช้
                 $userStmt = $conn->prepare("SELECT * FROM users WHERE id_us = :id_us");
                 $userStmt->bindParam(':id_us', $id_us);
                 $userStmt->execute();
